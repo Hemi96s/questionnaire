@@ -12,7 +12,7 @@ import com.example.questionnaire.entity.QuestionId;
 public interface QusetionDao extends JpaRepository<Question, QuestionId>{
 	
 	public void deleteByQnIdIn(List<Integer> qnIdList);
-	public void deleteByQnIdAndQuIdIn(int qnId, List<Integer> quIdList);
+	public void deleteByQnIdAndQuidIn(int qnId, List<Integer> quIdList);
 	
 	public List<Question> findAllByQnIdIn(List<Integer> qnIdList);
 

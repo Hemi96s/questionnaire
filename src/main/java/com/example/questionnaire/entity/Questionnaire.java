@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name="questionnaire")
 
@@ -25,7 +27,7 @@ public class Questionnaire {
 	private String description;
 	
 	@Column(name="is_publish")
-	private boolean Publish;
+	private boolean publish;
 	
 	@Column(name="start_date")
 	private LocalDate startTime;
@@ -58,11 +60,11 @@ public class Questionnaire {
 	}
 
 	public boolean isPublish() {
-		return Publish;
+		return publish;
 	}
 
 	public void setPublish(boolean publish) {
-		Publish = publish;
+		this.publish = publish;
 	}
 
 	public LocalDate getStartTime() {
@@ -83,13 +85,14 @@ public class Questionnaire {
 
 	public Questionnaire() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Questionnaire(String title, String description, boolean publish, LocalDate startTime, LocalDate endTime) {
 		super();
 		this.title = title;
 		this.description = description;
-		Publish = publish;
+		this.publish = publish;
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}

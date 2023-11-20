@@ -33,14 +33,14 @@ public interface QuestionnaireDao extends JpaRepository<Questionnaire, Integer>{
 	
 	public List<Questionnaire> findByTitleContainingAndStartTimeGreaterThanEqualAndEndTimeLessThanEqual(String tile,LocalDate startTime,LocalDate endTime)
 ;	
-	public List<Questionnaire> findByTitleContainingAndStartTimeGreaterThanEqualAndEndTimeLessThanEqualAndListPublishedTrue(String tile,LocalDate startTime,LocalDate endTime);
-	@Transactional
-	@Modifying
-	@Query(value = "select * from questionnaire.questionnaire left join questionnaire.question on questionnaire.questionnaire.id=questionnaire.question.qn_id where questionnaire.questionnaire.id=?1",nativeQuery = true)
-	public QuizRes findQ(int id);
-	
-	@Transactional
-	@Modifying
-	@Query(value="select * from questionnaire.questionnaire left join questionnaire.question on questionnaire.questionnaire.id=questionnaire.question.qn_id where questionnaire.is_publish=1 AND (?2 IS NULL OR questionnaire.title LIKE %?2%) AND (?3 IS NULL OR questionnaire.start_date >= ?3) AND (?4 IS NULL OR pquestionnaire.end_date <= ?4)",nativeQuery = true)
-	public List<Questionnaire> findFront(String tile,LocalDate startTime,LocalDate endTime);
+	public List<Questionnaire> findByTitleContainingAndStartTimeGreaterThanEqualAndEndTimeLessThanEqualAndPublishTrue(String tile,LocalDate startTime,LocalDate endTime);
+//	@Transactional
+//	@Modifying
+//	@Query(value = "select * from questionnaire.questionnaire left join questionnaire.question on questionnaire.questionnaire.id=questionnaire.question.qn_id where questionnaire.questionnaire.id=?1",nativeQuery = true)
+//	public QuizRes findQ(int id);
+//	
+//	@Transactional
+//	@Modifying
+//	@Query(value="select * from questionnaire.questionnaire left join questionnaire.question on questionnaire.questionnaire.id=questionnaire.question.qn_id where questionnaire.is_publish=1 AND (?2 IS NULL OR questionnaire.title LIKE %?2%) AND (?3 IS NULL OR questionnaire.start_date >= ?3) AND (?4 IS NULL OR pquestionnaire.end_date <= ?4)",nativeQuery = true)
+//	public List<Questionnaire> findFront(String tile,LocalDate startTime,LocalDate endTime);
 }

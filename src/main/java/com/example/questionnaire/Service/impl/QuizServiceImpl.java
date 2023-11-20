@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -131,7 +130,7 @@ public class QuizServiceImpl implements QuizService {
 		return null;
 
 	}
-
+	@Transactional
 	@Override
 	public QuizRes deleteQuestionnaire(List<Integer> qnIdList) {
 		List<Questionnaire> qnList = qnDao.findByIdIn(qnIdList);
@@ -160,7 +159,7 @@ public class QuizServiceImpl implements QuizService {
 		Questionnaire op =qnOp.get();
 		if(!op.isPublish()||op.isPublish()&& LocalDate.now().isBefore(op.getStartTime())) {
 //			quDao.deleteByQnIdIn(quIdList);
-			quDao.deleteByQnIdAndQuIdIn(qnId,quIdList);
+			quDao.deleteByQnIdAndQuidIn(qnId,quIdList);
 		}
 		return new QuizRes(RtnCode.SUCCESSFUL);
 	}
@@ -226,7 +225,7 @@ public class QuizServiceImpl implements QuizService {
 		endTime =endTime !=null? endTime:LocalDate.of(2900, 1, 1);		
 		List<Questionnaire> qnList=new ArrayList();
 		if(is_Published) {
-		qnList = qnDao.findByTitleContainingAndStartTimeGreaterThanEqualAndEndTimeLessThanEqualAndListPublishedTrue(title, startTime, endTime);
+		qnList = qnDao.findByTitleContainingAndStartTimeGreaterThanEqualAndEndTimeLessThanEqualAndPublishTrue(title, startTime, endTime);
 		}else {
 		 qnList = qnDao.findByTitleContainingAndStartTimeGreaterThanEqualAndEndTimeLessThanEqual(title, startTime, endTime);
 		}
