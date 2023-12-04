@@ -1,37 +1,21 @@
-package com.example.questionnaire.entity;
+package com.example.questionnaire.vo;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="question")
-@IdClass(value = QuestionId.class)
-public class Question {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+public class QReq {
+
 	private int quid;
-	
-	@Id
-	@Column(name="qn_id")
+
 	private int qnId;
-	
-	@Column(name="q_title")
+
 	private String qTitle;
-	
-	@Column(name="option_type")
+
 	private String optionType;
 	
-	@Column(name="is_necessary")
+
 	private boolean Necessary;
-	
-	@Column(name="q_option")
+
 	private String option;
 
 	public int getQuid() {
@@ -81,22 +65,7 @@ public class Question {
 	public void setOption(String option) {
 		this.option = option;
 	}
-
-	public Question(int quid, int qnId, String qTitle, String optionType, boolean necessary, String option) {
-		super();
-		this.quid = quid;
-		this.qnId = qnId;
-		this.qTitle = qTitle;
-		this.optionType = optionType;
-		Necessary = necessary;
-		this.option = option;
-	}
-
-	public Question() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	
 	
+
 }

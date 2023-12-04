@@ -9,6 +9,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -163,12 +164,12 @@ public class QuizServiceImpl implements QuizService {
 		}
 		return new QuizRes(RtnCode.SUCCESSFUL);
 	}
-
+//	@Cacheable(cacheNames = "search",key = "#title.concat('_').concat(startTime.toString()).concat('_').concat(endTime.toString())",unless = "#result.code!=200")
 	@Override
 	public QuizRes search(String title, LocalDate startTime, LocalDate endTime) {	
-		title=StringUtils.hasText(title) ? title : "";	
-		startTime =startTime!= null ? startTime : LocalDate.of(1900, 1, 1);
-		endTime =endTime !=null? endTime:LocalDate.of(2900, 1, 1);		
+//		title=StringUtils.hasText(title) ? title : "";	
+//		startTime =startTime!= null ? startTime : LocalDate.of(1900, 1, 1);
+//		endTime =endTime !=null? endTime:LocalDate.of(2900, 1, 1);		
 		List<Questionnaire> qnList = qnDao.findByTitleContainingAndStartTimeGreaterThanEqualAndEndTimeLessThanEqual(title, startTime, endTime);
 		//從Questionnaire找到的ID放到List裡面
 		List<Integer> qnIds=new ArrayList<>();		
@@ -178,22 +179,26 @@ public class QuizServiceImpl implements QuizService {
 		//從Question抓出qnIds有哪些 (qnIds是foreign key )
 		List<Question> quList=quDao.findAllByQnIdIn(qnIds);
 		List<QuizVo> quizVoList=new ArrayList<>();		
-		for(Questionnaire item:qnList) {
-			//給他一個容器 裝問卷+問卷的問題
-			QuizVo vo=new QuizVo();	
-			vo.setQuestionnaire(item);
-//			給他一個容器，裝有那些Qnid
-			List<Question> questionList=new ArrayList<Question>();
-			for(Question qu:quList) {		
-				//Questionnaire的id是否等於Qusetion的qnid
-				if(qu.getQnId()== item.getId()) {
-					questionList.add(qu);
-				}
-			}			
-			vo.setQuestion(questionList);
-			quizVoList.add(vo);
-			
-		}
+		
+			for(Questionnaire item:qnList) {
+				
+				//給他一個容器 裝問卷+問卷的問題
+				QuizVo vo=new QuizVo();	
+				vo.setQuestionnaire(item);
+//				給他一個容器，裝有那些Qnid
+				List<Question> questionList=new ArrayList<Question>();
+				for(Question qu:quList) {		
+					//Questionnaire的id是否等於Qusetion的qnid
+					if(qu.getQnId()== item.getId()) {
+						questionList.add(qu);
+					}
+				}			
+				vo.setQuestion(questionList);
+				quizVoList.add(vo);
+				
+			}
+		
+
 		return new QuizRes(quizVoList, RtnCode.SUCCESSFUL);
 	}
 
@@ -233,6 +238,9 @@ public class QuizServiceImpl implements QuizService {
 		return new QuestionnaireRes(qnList,RtnCode.SUCCESSFUL);
 		
 	}
+
+
+	
 
 
 

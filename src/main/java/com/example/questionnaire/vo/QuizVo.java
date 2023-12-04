@@ -7,8 +7,10 @@ import com.example.questionnaire.entity.Question;
 import com.example.questionnaire.entity.Questionnaire;
 
 public class QuizVo {
-	private Questionnaire questionnaire= new Questionnaire();;
-	private List<Question> Question  =new ArrayList<>();;
+	private Questionnaire questionnaire;
+	
+	private List<Question> Question;
+	
 	public Questionnaire getQuestionnaire() {
 		return questionnaire;
 	}

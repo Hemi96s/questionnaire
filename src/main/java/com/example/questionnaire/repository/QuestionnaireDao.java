@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.example.questionnaire.entity.Question;
 import com.example.questionnaire.entity.Questionnaire;
 import com.example.questionnaire.entity.QuizAll;
+import com.example.questionnaire.vo.QuestionnaireRes;
 import com.example.questionnaire.vo.QuizReq;
 import com.example.questionnaire.vo.QuizRes;
 import com.example.questionnaire.vo.QuizVo;
@@ -43,4 +44,11 @@ public interface QuestionnaireDao extends JpaRepository<Questionnaire, Integer>{
 //	@Modifying
 //	@Query(value="select * from questionnaire.questionnaire left join questionnaire.question on questionnaire.questionnaire.id=questionnaire.question.qn_id where questionnaire.is_publish=1 AND (?2 IS NULL OR questionnaire.title LIKE %?2%) AND (?3 IS NULL OR questionnaire.start_date >= ?3) AND (?4 IS NULL OR pquestionnaire.end_date <= ?4)",nativeQuery = true)
 //	public List<Questionnaire> findFront(String tile,LocalDate startTime,LocalDate endTime);
+	@Transactional
+	@Modifying
+	@Query(value="SELECT * FROM questionnaire.questionnaire WHERE (?1 IS NULL OR title LIKE %?1%) AND (?2 IS NULL OR start_date >= ?2) AND (?3 IS NULL OR end_date <= ?3)",nativeQuery = true)
+	public List<Questionnaire>searchQ(String title,LocalDate starTime, LocalDate endTime);
+	
+	
+	
 }

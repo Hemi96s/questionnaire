@@ -20,6 +20,8 @@ public interface QuizService {
 	
 	public QuizRes search(String title,LocalDate startTime ,LocalDate endTime);
 	
+
+	
 	public QuestionnaireRes searchQuestionnaireList(String title,LocalDate startTime ,LocalDate endTime);
 	
 	public QuestionRes searchQuestionList(int qnId);

@@ -1,18 +1,26 @@
 package com.example.questionnaire.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="user")
 public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="number")
+	private int num;
 
 	@Column(name="name")
 	private String name;
 	
-	@Id
 	@Column(name="phone_number")
 	private String phoneNumber;
 	
@@ -30,6 +38,17 @@ public class User {
 	
 	@Column(name="ans")
 	private String ans;
+	
+	@Column(name="date_time")
+	private LocalDateTime dateTime;
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
 
 	public String getName() {
 		return name;
@@ -87,8 +106,19 @@ public class User {
 		this.ans = ans;
 	}
 
-	public User(String name, String phoneNumber, String email, int age, int qnId, int qId, String ans) {
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
+	}
+
+	public User() {
 		super();
+	}
+
+	public User(String name, String phoneNumber, String email, int age, int qnId, int qId, String ans) {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
@@ -98,10 +128,6 @@ public class User {
 		this.ans = ans;
 	}
 
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	
 	
 }
